@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SetGameButton : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class SetGameButton : MonoBehaviour
         NotSet,
         PairNumberBtn,
         PuzzleCategoryBtn,
-    }
+    };
 
     [SerializeField,Header("ボタンのタイプ")]public EButtonType _buttonType = EButtonType.NotSet;
 
@@ -23,10 +24,25 @@ public class SetGameButton : MonoBehaviour
     {
         
     }
-
-    // Update is called once per frame
-    void Update()
+ 
+    public void SetGameOption(string GameSceneName)
     {
-        
+        var comp = gameObject.GetComponent<SetGameButton>();
+
+        switch (comp._buttonType)
+        {
+            case SetGameButton.EButtonType.PairNumberBtn:
+                GameSettings.Instance.SetPairNumber(comp._pairNumber);
+                break;
+
+            case EButtonType.PuzzleCategoryBtn:
+                GameSettings.Instance.SetPuzzleCategories(comp._puzzleCategories);
+                break;
+        }
+
+        if (GameSettings.Instance.AllSettingsReady())
+        {
+            SceneManager.LoadScene(GameSceneName);
+        }
     }
 }
