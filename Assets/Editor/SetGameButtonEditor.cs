@@ -1,18 +1,36 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
-public class SetGameButtonEditor : MonoBehaviour
+
+[CustomEditor(inspectedType:typeof(SetGameButton))]
+[CanEditMultipleObjects]
+[Serializable]
+public class SetGameButtonEditor : Editor
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void OnInspectorGUI()
     {
-        
-    }
+        DrawDefaultInspector();
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        SetGameButton myScript = target as SetGameButton;
+
+        switch (myScript._buttonType)
+        {
+            case SetGameButton.EButtonType.PairNumberBtn:
+                myScript._pairNumber = (GameSettings.EPairNumber)EditorGUILayout.EnumPopup(label: "Pair Number", myScript._pairNumber);
+                break;
+
+            case SetGameButton.EButtonType.PuzzleCategoryBtn:
+                myScript._puzzleCategories = 
+                    (GameSettings.EPuzzleCategories)EditorGUILayout.EnumPopup(label: "Puzzle Categories", myScript._puzzleCategories);
+                break;
+        }
+
+        if (GUI.changed)
+        {
+            EditorUtility.SetDirty(target);
+        }
     }
 }
