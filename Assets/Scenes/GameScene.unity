@@ -362,6 +362,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e852d059e33c744caa7a076b6cb99cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _picturePrefab: {fileID: 3782541632780703684, guid: 26fc973b6be881c41ab81c8f86348467, type: 3}
+  _picSpawnPosition: {fileID: 827694948}
+  _startPosition: {x: -2.15, y: 3.62}
+  _pictureList: []
 --- !u!1 &1051311191
 GameObject:
   m_ObjectHideFlags: 0
